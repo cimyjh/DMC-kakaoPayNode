@@ -9,6 +9,11 @@ const fundSchema = mongoose.Schema(
       ref: "User",
     },
 
+    //상품 구분 ex펀드, 부동산
+    classification: {
+      type: String,
+    },
+
     //판매자 ex)키움자산운용, 피플펀드
     seller: {
       type: String,

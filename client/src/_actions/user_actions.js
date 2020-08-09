@@ -46,13 +46,13 @@ export function logoutUser() {
   };
 }
 
-export function logoutUser() {
-  const request = axios
-    .get(`${USER_SERVER}/logout`)
-    .then((response) => response.data);
+// export function purchase_fund() {
+//   const request = axios
+//     .get(`${USER_SERVER}/logout`)
+//     .then((response) => response.data);
 
-  return {
-    type: LOGOUT_USER,
-    payload: request,
-  };
-}
+//   return {
+//     type: LOGOUT_USER,
+//     payload: request,
+//   };
+// }

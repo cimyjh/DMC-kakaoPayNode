@@ -18,6 +18,9 @@ function UploadProductPage(props) {
   //판매자
   const [Seller, setSeller] = useState("");
 
+  //상품 구분
+  const [Classification, setClassification] = useState("");
+
   //상품 소개 이름
   const [KakaoTitle, setKakaoTitle] = useState("");
 
@@ -53,6 +56,10 @@ function UploadProductPage(props) {
   //글 상자 작동을 위한 event
   const sellerChangeHandler = (event) => {
     setSeller(event.currentTarget.value);
+  };
+
+  const classificationChangeHandler = (event) => {
+    setClassification(event.currentTarget.value);
   };
 
   const kakaoTitleChangeHandler = (event) => {
@@ -111,6 +118,7 @@ function UploadProductPage(props) {
       //로그인 된 사람의 ID
       buyer: props.user.userData._id,
       seller: Seller,
+      classification: Classification,
       kakaoTitle: KakaoTitle,
       fundTitle: FundTitle,
       local: Local,
@@ -144,6 +152,9 @@ function UploadProductPage(props) {
         <FileUpload refreshFunction={updateImages} />
 
         <Divider>펀드 이름 및 유형</Divider>
+        <br />
+        <label>상품 구분</label>
+        <Input onChange={classificationChangeHandler} value={Classification} />
         <br />
         <label>판매자</label>
         <Input onChange={sellerChangeHandler} value={Seller} />

@@ -3,8 +3,11 @@ import axios from "axios";
 import FundImage from "./Sections/FundImage";
 import FundInfo from "./Sections/FundInfo";
 import { Row, Col, Divider } from "antd";
+import { Router, Route, browserHistory, IndexRoute } from "react-router";
+// import { useSelector } from "react-redux";
 
 function DetailFundPage(props) {
+  // const user = useSelector((state) => state.user);
   const fundId = props.match.params.fundId;
 
   const [Fund, setFund] = useState({});

@@ -1,18 +1,85 @@
-import React from "react";
-import { Button, Descriptions } from "antd";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { Button, Descriptions, Form, Input } from "antd";
+import { Router, Route, browserHistory, IndexRoute } from "react-router";
+// import { useDispatch } from "react-redux";
+import Axios from "axios";
+// import { useSelector } from "react-redux";
 // import { addToCart } from "../../../../_actions/user_actions";
 
 function FundInfo(props) {
-  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user);
+  const [Quantity, setQuantity] = useState("");
 
-  const clickHandler = () => {
-    //필요한 정보를 Cart 필드에다가 넣어 준다.
-    dispatch(purchase_fund(props.detail._id));
+  const userId = localStorage.getItem("userId");
+
+  const quantityChangeHandler = (event) => {
+    setQuantity(event.currentTarget.value);
   };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (!Quantity) {
+      return alert("구매하고자 하는 금액을 넣어주셔야 합니다.");
+    }
+
+    //작동안함
+    //   const body = {
+    //     buyer: userId,
+    //     fundId: props.detail._id,
+    //     fundTitle: props.detail.fundTitle,
+    //     fess: props.detail.fess,
+    //     Quantity: Quantity,
+    //   };
+    //   console.log(body);
+
+    //   Axios.post("/api/users/purchase", body).then((response) => {
+    //     if (response.data.success) {
+    //       alert("상품 구매에 성공했습니다.");
+
+    //       //후에 구매내역 페이지로 이동해야한다.
+    //       //안됨
+    //       // props.history.push("/");
+    //     } else {
+    //       alert("상품 구매에 실패했습니다.");
+    //     }
+    //   });
+    // };
+
+    //작동함
+    const body = {
+      buyer: userId,
+      fund: props.detail._id,
+      classification: props.detail.classification,
+      kakaoTitle: props.detail.kakaoTitle,
+      fundTitle: props.detail.fundTitle,
+      quantity: Quantity,
+    };
+    console.log(body);
+
+    Axios.post("/api/users/purchase", body).then((response) => {
+      if (response.data.success) {
+        alert("상품 구매에 성공했습니다.");
+
+        //후에 구매내역 페이지로 이동해야한다.
+        //안됨
+        // props.history.push("/");
+      } else {
+        alert("상품 구매에 실패했습니다.");
+      }
+    });
+  };
+
+  // const dispatch = useDispatch();
+
+  // const clickHandler = () => {d
+  //   //필요한 정보를 Cart 필드에다가 넣어 준다.
+  //   dispatch(purchase_fund(props.detail._id));
+  // };
 
   return (
     <div>
+      <h1>{/* {user} ???{props.detail.kakaoTitle} */}</h1>
       <Descriptions title="펀드 정보" bordered>
         <Descriptions.Item label="상품 소개 이름" span={3}>
           {props.detail.kakaoTitle}
@@ -51,9 +118,15 @@ function FundInfo(props) {
       <br />
       <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button size="large" shape="round" type="danger" onClick={clickHandler}>
-          Add to Cart
-        </Button>
+        <Form onSubmit={submitHandler}>
+          <Input
+            type="number"
+            onChange={quantityChangeHandler}
+            value={Quantity}
+          />
+
+          <button type="submit">구매하기</button>
+        </Form>
       </div>
     </div>
   );
