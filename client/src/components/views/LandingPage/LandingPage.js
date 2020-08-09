@@ -55,7 +55,7 @@ function LandingPage() {
         >
           <h2>
             {" "}
-            <a href={`/fund/${fund._id}`}>{fund.title}</a>
+            <a href={`/fund/${fund._id}`}>{fund.kakaoTitle}</a>
           </h2>
           <Meta title={fund.kakaoTitle} description={`${fund.fundTheme}`} />
         </Card>
