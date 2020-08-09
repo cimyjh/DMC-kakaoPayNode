@@ -9,6 +9,7 @@ import UploadFundPage from "./views/UploadFundPage/UploadFundPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import DetailFundPage from "./views/DetailFundPage/DetailFundPage";
+import StatementPage from "./views/StatementPage/StatementPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -32,6 +33,11 @@ function App() {
             exact
             path="/fund/:fundId"
             component={Auth(DetailFundPage, true)}
+          />
+          <Route
+            exact
+            path="/statement"
+            component={Auth(StatementPage, null)}
           />
         </Switch>
       </div>

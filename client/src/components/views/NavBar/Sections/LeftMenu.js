@@ -29,6 +29,13 @@ function LeftMenu(props) {
           </Menu.Item>
         </MenuItemGroup>
       </SubMenu>
+      <SubMenu title={<span>판매된 상품 확인하기</span>}>
+        <MenuItemGroup title="투자상품 확인">
+          <Menu.Item key="setting:1">
+            <a href="/statement">상세페이지</a>
+          </Menu.Item>
+        </MenuItemGroup>
+      </SubMenu>
     </Menu>
   );
 }
