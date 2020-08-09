@@ -48,9 +48,9 @@ function StatementPage() {
     return (
       <tr key={index}>
         <td>{statement.buyer.email}</td>
-        <td>{statement.classification}</td>
-        <td>{statement.kakaoTitle}</td>
-        <td>{statement.fundTitle}</td>
+        <td>{statement.fund.classification}</td>
+        <td>{statement.fund.kakaoTitle}</td>
+        <td>{statement.fund.fundTitle}</td>
         <td>{statement.quantity}</td>
       </tr>
     );

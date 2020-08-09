@@ -13,22 +13,22 @@ const statementSchema = mongoose.Schema(
       ref: "Fund",
     },
 
-    //상품 구분 ex펀드, 부동산
-    classification: {
-      type: String,
-    },
+    // //상품 구분 ex펀드, 부동산
+    // classification: {
+    //   type: String,
+    // },
 
-    //상품 소개 이름
-    kakaoTitle: {
-      type: String,
-      maxlength: 200,
-    },
+    // //상품 소개 이름
+    // kakaoTitle: {
+    //   type: String,
+    //   maxlength: 200,
+    // },
 
-    //펀드 진짜 이름
-    fundTitle: {
-      type: String,
-      maxlength: 200,
-    },
+    // //펀드 진짜 이름
+    // fundTitle: {
+    //   type: String,
+    //   maxlength: 200,
+    // },
 
     quantity: {
       type: Number,

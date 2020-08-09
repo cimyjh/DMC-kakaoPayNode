@@ -14,39 +14,24 @@ const { TextArea } = Input;
 //   { key: 7, value: "Antarctica" },
 // ];
 
-function UploadProductPage(props) {
+function RealEstateUploadProductPage(props) {
   //판매자
   const [Seller, setSeller] = useState("");
-
-  //상품 구분
-  const [Classification, setClassification] = useState("");
-
-  //상품 소개 이름
-  const [KakaoTitle, setKakaoTitle] = useState("");
 
   //펀드 진짜 이름
   const [FundTitle, setFundTitle] = useState("");
 
-  //펀드 지역
-  const [Local, setLocal] = useState("");
+  //상품 구분
+  const [Classification, setClassification] = useState("");
 
-  //펀드 테마
-  const [FundTheme, setFundTheme] = useState("");
+  //연이율
+  const [MortgageInterestRate, setMortgageInterestRate] = useState("");
 
-  //펀드 위험
-  const [FundDanger, setFundDanger] = useState("");
+  //투자기간
+  const [InvestmentPeriod, setInvestmentPeriod] = useState("");
 
-  //누적투자자 수
-  const [SalesPeople, setSalesPeople] = useState("");
-
-  //누적 판매 금액
-  const [SalesAmount, setSalesAmount] = useState("");
-
-  //설중 후 수익률
-  const [AfterYield, setAfterYield] = useState("");
-
-  //보수
-  const [Fess, setFess] = useState("");
+  //상환방식
+  const [RepaymentMethod, setRepaymentMethod] = useState("");
 
   //   const [Description, setDescription] = useState("");
   //   const [Price, setPrice] = useState(0);
@@ -58,44 +43,24 @@ function UploadProductPage(props) {
     setSeller(event.currentTarget.value);
   };
 
-  const classificationChangeHandler = (event) => {
-    setClassification(event.currentTarget.value);
-  };
-
-  const kakaoTitleChangeHandler = (event) => {
-    setKakaoTitle(event.currentTarget.value);
-  };
-
   const fundTitleChangeHandler = (event) => {
     setFundTitle(event.currentTarget.value);
   };
 
-  const localChangeHandler = (event) => {
-    setLocal(event.currentTarget.value);
+  const classificationChangeHandler = (event) => {
+    setClassification(event.currentTarget.value);
   };
 
-  const fundThemeChangeHandler = (event) => {
-    setFundTheme(event.currentTarget.value);
+  const mortgageInterestRateChangeHandler = (event) => {
+    setMortgageInterestRate(event.currentTarget.value);
   };
 
-  const fundDamgerChangeHandler = (event) => {
-    setFundDanger(event.currentTarget.value);
+  const investmentPeriodChangeHandler = (event) => {
+    setInvestmentPeriod(event.currentTarget.value);
   };
 
-  const salesPeopleChangeHandler = (event) => {
-    setSalesPeople(event.currentTarget.value);
-  };
-
-  const salesAmountChangeHandler = (event) => {
-    setSalesAmount(event.currentTarget.value);
-  };
-
-  const afterYieldChangeHandler = (event) => {
-    setAfterYield(event.currentTarget.value);
-  };
-
-  const fessChangeHandler = (event) => {
-    setFess(event.currentTarget.value);
+  const repaymentMethodChangeHandler = (event) => {
+    setRepaymentMethod(event.currentTarget.value);
   };
 
   //이미지 전송
@@ -107,7 +72,7 @@ function UploadProductPage(props) {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!Seller || !KakaoTitle || !FundTitle || !Local || Images.length === 0) {
+    if (!Seller || !FundTitle || Images.length === 0) {
       return alert(" 모든 값을 넣어주셔야 합니다.");
     }
 
@@ -119,15 +84,10 @@ function UploadProductPage(props) {
       buyer: props.user.userData._id,
       seller: Seller,
       classification: Classification,
-      kakaoTitle: KakaoTitle,
       fundTitle: FundTitle,
-      local: Local,
-      fundTheme: FundTheme,
-      fundDanger: FundDanger,
-      salesPeople: SalesPeople,
-      salesAmount: SalesAmount,
-      afterYield: AfterYield,
-      fess: Fess,
+      mortgageInterestRate: MortgageInterestRate,
+      investmentPeriod: InvestmentPeriod,
+      repaymentMethod: RepaymentMethod,
       images: Images,
     };
 
@@ -144,7 +104,7 @@ function UploadProductPage(props) {
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <h2> 펀드 상품 업로드</h2>
+        <h2> 부동산 담보 상품 업로드</h2>
       </div>
 
       <Form onSubmit={submitHandler}>
@@ -153,62 +113,36 @@ function UploadProductPage(props) {
 
         <Divider>펀드 이름 및 유형</Divider>
         <br />
-        <label>상품 구분</label>
+        <label>상품 구분___펀드 or 부동산</label>
         <Input onChange={classificationChangeHandler} value={Classification} />
         <br />
         <label>판매자</label>
         <Input onChange={sellerChangeHandler} value={Seller} />
         <br />
         <br />
-        <label>카카오페이 상품 소개명</label>
-        <Input onChange={kakaoTitleChangeHandler} value={KakaoTitle} />
-        <br />
-        <br />
         <label>펀드명</label>
         <Input onChange={fundTitleChangeHandler} value={FundTitle} />
         <br />
         <br />
-        <label>펀드 지역 구분</label>
-        <Input onChange={localChangeHandler} value={Local} />
-        <br />
-        <br />
-        <label>펀드 테마</label>
-        <Input onChange={fundThemeChangeHandler} value={FundTheme} />
-        <br />
-        <br />
-        <label>펀드 위험도</label>
-        <Input onChange={fundDamgerChangeHandler} value={FundDanger} />
-        <br />
-        <br />
-
-        <Divider>펀드와 관련된 수치</Divider>
-        <br />
-        <label>누적 투자자 수</label>
+        <label>연이율</label>
         <Input
-          type="number"
-          onChange={salesPeopleChangeHandler}
-          value={SalesPeople}
+          onChange={mortgageInterestRateChangeHandler}
+          value={MortgageInterestRate}
         />
         <br />
         <br />
-        <label>누적 판매 금액</label>
+        <label>투자기간</label>
         <Input
-          type="number"
-          onChange={salesAmountChangeHandler}
-          value={SalesAmount}
+          onChange={investmentPeriodChangeHandler}
+          value={InvestmentPeriod}
         />
         <br />
         <br />
-        <label>설정 후 수익률</label>
+        <label>상환방식</label>
         <Input
-          type="number"
-          onChange={afterYieldChangeHandler}
-          value={AfterYield}
+          onChange={repaymentMethodChangeHandler}
+          value={RepaymentMethod}
         />
-        <br />
-        <br />
-        <label>보수( 넓은 범위에서의 수수료 )</label>
-        <Input type="number" onChange={fessChangeHandler} value={Fess} />
         <br />
         <br />
         {/* <label>가격($)</label>
@@ -229,4 +163,4 @@ function UploadProductPage(props) {
   );
 }
 
-export default UploadProductPage;
+export default RealEstateUploadProductPage;

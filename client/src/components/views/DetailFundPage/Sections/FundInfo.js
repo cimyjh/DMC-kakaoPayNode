@@ -50,9 +50,9 @@ function FundInfo(props) {
     const body = {
       buyer: userId,
       fund: props.detail._id,
-      classification: props.detail.classification,
-      kakaoTitle: props.detail.kakaoTitle,
-      fundTitle: props.detail.fundTitle,
+      // classification: props.detail.classification,
+      // kakaoTitle: props.detail.kakaoTitle,
+      // fundTitle: props.detail.fundTitle,
       quantity: Quantity,
     };
     console.log(body);
@@ -70,6 +70,65 @@ function FundInfo(props) {
     });
   };
 
+  const RenderItems = () => {
+    if (props.detail.fundDanger) {
+      return (
+        <Descriptions title="펀드 정보" bordered>
+          <Descriptions.Item label="상품 소개 이름" span={3}>
+            {props.detail.kakaoTitle}
+          </Descriptions.Item>
+          <Descriptions.Item label="펀드 이름" span={3}>
+            {props.detail.fundTitle}
+          </Descriptions.Item>
+          <Descriptions.Item label="판매자">
+            {props.detail.seller}
+          </Descriptions.Item>
+          <Descriptions.Item label="펀드 지역">
+            {props.detail.local}
+          </Descriptions.Item>
+          <Descriptions.Item label="펀드 테마">
+            {props.detail.fundTheme}
+          </Descriptions.Item>
+          <Descriptions.Item label="펀드 위험">
+            {props.detail.fundDanger}
+          </Descriptions.Item>
+          <Descriptions.Item label="누적 투자자 수">
+            {props.detail.salesPeople}명
+          </Descriptions.Item>{" "}
+          명
+          <Descriptions.Item label="누적 판매 금액">
+            {props.detail.salesAmount} 억원
+          </Descriptions.Item>
+          <Descriptions.Item label="설정 후 수익률">
+            {props.detail.afterYield}%
+          </Descriptions.Item>
+          <Descriptions.Item label="보수_수수료">
+            {props.detail.fess}%
+          </Descriptions.Item>
+        </Descriptions>
+      );
+    } else
+      return (
+        <Descriptions title="펀드 정보" bordered>
+          <Descriptions.Item label="펀드 이름" span={3}>
+            {props.detail.fundTitle}
+          </Descriptions.Item>
+          <Descriptions.Item label="판매자">
+            {props.detail.seller}
+          </Descriptions.Item>
+          <Descriptions.Item label="연이율">
+            {props.detail.mortgageInterestRate}
+          </Descriptions.Item>
+          <Descriptions.Item label="투자기간">
+            {props.detail.investmentPeriod}
+          </Descriptions.Item>
+          <Descriptions.Item label="상환방식">
+            {props.detail.repaymentMethod}
+          </Descriptions.Item>
+        </Descriptions>
+      );
+  };
+
   // const dispatch = useDispatch();
 
   // const clickHandler = () => {d
@@ -79,44 +138,10 @@ function FundInfo(props) {
 
   return (
     <div>
-      <h1>{/* {user} ???{props.detail.kakaoTitle} */}</h1>
-      <Descriptions title="펀드 정보" bordered>
-        <Descriptions.Item label="상품 소개 이름" span={3}>
-          {props.detail.kakaoTitle}
-        </Descriptions.Item>
-        <Descriptions.Item label="펀드 이름" span={3}>
-          {props.detail.fundTitle}
-        </Descriptions.Item>
-        <Descriptions.Item label="판매자">
-          {props.detail.seller}
-        </Descriptions.Item>
-        <Descriptions.Item label="펀드 지역">
-          {props.detail.local}
-        </Descriptions.Item>
-        <Descriptions.Item label="펀드 테마">
-          {props.detail.fundTheme}
-        </Descriptions.Item>
-        <Descriptions.Item label="펀드 위험">
-          {props.detail.fundDanger}
-        </Descriptions.Item>
-        <Descriptions.Item label="누적 투자자 수">
-          {props.detail.salesPeople}명
-        </Descriptions.Item>{" "}
-        명
-        <Descriptions.Item label="누적 판매 금액">
-          {props.detail.salesAmount} 억원
-        </Descriptions.Item>
-        <Descriptions.Item label="설정 후 수익률">
-          {props.detail.afterYield}%
-        </Descriptions.Item>
-        <Descriptions.Item label="보수_수수료">
-          {props.detail.fess}%
-        </Descriptions.Item>
-      </Descriptions>
+      <div>
+        <RenderItems />
+      </div>
 
-      <br />
-      <br />
-      <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Form onSubmit={submitHandler}>
           <Input

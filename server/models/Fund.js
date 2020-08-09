@@ -57,25 +57,25 @@ const fundSchema = mongoose.Schema(
     //누적 투자자 수
     salesPeople: {
       type: Number,
-      default: 0,
+      // default: 0,
     },
 
     //누적 판매 금액
     salesAmount: {
       type: Number,
-      default: 0,
+      // default: 0,
     },
 
     //설정 후 수익률
     afterYield: {
       type: Number,
-      default: 0,
+      // default: 0,
     },
 
     //보수_수수료
     fess: {
       type: Number,
-      default: 0,
+      // default: 0,
     },
 
     images: {
@@ -85,7 +85,24 @@ const fundSchema = mongoose.Schema(
 
     views: {
       type: Number,
-      default: 0,
+      // default: 0,
+    },
+
+    //부동산 담보
+
+    //연이율
+    mortgageInterestRate: {
+      type: Number,
+    },
+
+    //투자기간
+    investmentPeriod: {
+      type: String,
+    },
+
+    //상환방식
+    repaymentMethod: {
+      type: String,
     },
   },
   { timestamps: true }
@@ -94,12 +111,12 @@ const fundSchema = mongoose.Schema(
 fundSchema.index(
   {
     title: "text",
-    description: "text",
+    classification: "text",
   },
   {
     weights: {
-      title: 5,
-      description: 1,
+      title: 3,
+      description: 3,
     },
   }
 );

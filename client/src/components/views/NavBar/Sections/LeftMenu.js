@@ -25,7 +25,7 @@ function LeftMenu(props) {
             <a href="/fund/upload">펀드 등록하기</a>
           </Menu.Item>
           <Menu.Item key="setting:2">
-            <a href="/realestate">부동산 상품 등록하기</a>
+            <a href="/fund/real_estate_upload">부동산 상품 등록하기</a>
           </Menu.Item>
         </MenuItemGroup>
       </SubMenu>

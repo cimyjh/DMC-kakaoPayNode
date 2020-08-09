@@ -6,6 +6,7 @@ import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import UploadFundPage from "./views/UploadFundPage/UploadFundPage.js";
+import RealEstateUploadProductPage from "./views/UploadFundPage/RealEstateUploadFundPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import DetailFundPage from "./views/DetailFundPage/DetailFundPage";
@@ -28,6 +29,11 @@ function App() {
             exact
             path="/fund/upload"
             component={Auth(UploadFundPage, true)}
+          />
+          <Route
+            exact
+            path="/fund/real_estate_upload"
+            component={Auth(RealEstateUploadProductPage, true)}
           />
           <Route
             exact
