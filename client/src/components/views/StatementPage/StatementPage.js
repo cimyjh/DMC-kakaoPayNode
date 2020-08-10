@@ -5,7 +5,7 @@ import "./StatementPage.css";
 function StatementPage() {
   const [Statement, SetStatement] = useState([]);
   const [Skip, setSkip] = useState(0);
-  const [Limit, setLimit] = useState(8);
+  const [Limit, setLimit] = useState(100);
   const [PostSize, setPostSize] = useState(0);
 
   useEffect(() => {
@@ -47,11 +47,14 @@ function StatementPage() {
   const renderItems = Statement.map((statement, index) => {
     return (
       <tr key={index}>
-        <td>{statement.buyer.email}</td>
-        <td>{statement.fund.classification}</td>
-        <td>{statement.fund.kakaoTitle}</td>
+        <td>{statement.buyer.name}</td>
         <td>{statement.fund.fundTitle}</td>
-        <td>{statement.quantity}</td>
+        <td>
+          {statement.quantity.toLocaleString(navigator.language, {
+            minimumFractionDigits: 0,
+          })}
+          원
+        </td>
       </tr>
     );
   });
@@ -64,9 +67,7 @@ function StatementPage() {
         <table>
           <thead>
             <tr>
-              <th>구매자 번호</th>
-              <th>상품 구분</th>
-              <th>상품 소개 이름</th>
+              <th>구매자 이름</th>
               <th>펀드 이름</th>
               <th>판매된 펀드 금액</th>
             </tr>

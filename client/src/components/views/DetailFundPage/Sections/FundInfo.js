@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { Button, Descriptions, Form, Input } from "antd";
-import { Router, Route, browserHistory, IndexRoute } from "react-router";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { Button, Descriptions, Form, Input, Row, Col, Divider } from "antd";
+import {
+  Router,
+  Route,
+  browserHistory,
+  IndexRoute,
+  Redirect,
+} from "react-router";
 // import { useDispatch } from "react-redux";
 import Axios from "axios";
 // import { useSelector } from "react-redux";
@@ -11,6 +18,29 @@ function FundInfo(props) {
   const [Quantity, setQuantity] = useState("");
 
   const userId = localStorage.getItem("userId");
+
+  const [UserAccount, setUserAccount] = useState([]);
+
+  useEffect(() => {
+    let body = {
+      userId: userId,
+    };
+
+    getAccount(body);
+  }, []);
+
+  const getAccount = (body) => {
+    Axios.post("/api/account", body)
+      .then((response) => {
+        setUserAccount(response.data.userAccountInfo);
+        console.log(response.data.userAccountInfo);
+        console.log(response.data.success);
+
+        console.log({ UserAccount });
+        alert("계좌 정보를 성공적으로 가져왔습니다.");
+      })
+      .catch((err) => alert(err));
+  };
 
   const quantityChangeHandler = (event) => {
     setQuantity(event.currentTarget.value);
@@ -23,51 +53,63 @@ function FundInfo(props) {
       return alert("구매하고자 하는 금액을 넣어주셔야 합니다.");
     }
 
-    //작동안함
-    //   const body = {
-    //     buyer: userId,
-    //     fundId: props.detail._id,
-    //     fundTitle: props.detail.fundTitle,
-    //     fess: props.detail.fess,
-    //     Quantity: Quantity,
-    //   };
-    //   console.log(body);
-
-    //   Axios.post("/api/users/purchase", body).then((response) => {
-    //     if (response.data.success) {
-    //       alert("상품 구매에 성공했습니다.");
-
-    //       //후에 구매내역 페이지로 이동해야한다.
-    //       //안됨
-    //       // props.history.push("/");
-    //     } else {
-    //       alert("상품 구매에 실패했습니다.");
-    //     }
-    //   });
-    // };
-
     //작동함
     const body = {
       buyer: userId,
       fund: props.detail._id,
-      // classification: props.detail.classification,
-      // kakaoTitle: props.detail.kakaoTitle,
-      // fundTitle: props.detail.fundTitle,
       quantity: Quantity,
     };
-    console.log(body);
 
     Axios.post("/api/users/purchase", body).then((response) => {
       if (response.data.success) {
         alert("상품 구매에 성공했습니다.");
-
-        //후에 구매내역 페이지로 이동해야한다.
-        //안됨
-        // props.history.push("/");
+        props.history.push("/");
       } else {
         alert("상품 구매에 실패했습니다.");
       }
     });
+
+    //잔고 계산 하는 것
+    const afterAccount = UserAccount.account - Quantity;
+
+    const body2 = {
+      userId: userId,
+      account: afterAccount,
+    };
+
+    Axios.post("/api/account/purchase", body2)
+      .then((response) => {
+        setUserAccount(response.data.userAccountInfo);
+        console.log(response.data.userAccountInfo);
+        console.log(response.data.success);
+
+        console.log({ UserAccount });
+        props.history.push("/");
+
+        alert("계좌 잔고도 정상 차감되었습니다..");
+      })
+      // .catch((err) => alert(err));
+      .catch((err) => props.history.push("/"));
+  };
+
+  //계좌 가져오기
+  const findSubmitHandler = (event) => {
+    event.preventDefault();
+
+    let body = {
+      userId: userId,
+    };
+
+    Axios.post("/api/account", body)
+      .then((response) => {
+        setUserAccount(response.data.userAccountInfo);
+        console.log(response.data.userAccountInfo);
+        console.log(response.data.success);
+
+        console.log({ UserAccount });
+        alert("계좌 정보를 성공적으로 가져왔습니다.");
+      })
+      .catch((err) => alert(err));
   };
 
   const RenderItems = () => {
@@ -93,11 +135,17 @@ function FundInfo(props) {
             {props.detail.fundDanger}
           </Descriptions.Item>
           <Descriptions.Item label="누적 투자자 수">
-            {props.detail.salesPeople}명
+            {props.detail.salesPeople.toLocaleString(navigator.language, {
+              minimumFractionDigits: 0,
+            })}
+            명
           </Descriptions.Item>{" "}
           명
           <Descriptions.Item label="누적 판매 금액">
-            {props.detail.salesAmount} 억원
+            {props.detail.salesAmount.toLocaleString(navigator.language, {
+              minimumFractionDigits: 0,
+            })}{" "}
+            억원
           </Descriptions.Item>
           <Descriptions.Item label="설정 후 수익률">
             {props.detail.afterYield}%
@@ -142,19 +190,39 @@ function FundInfo(props) {
         <RenderItems />
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Form onSubmit={submitHandler}>
-          <Input
-            type="number"
-            onChange={quantityChangeHandler}
-            value={Quantity}
-          />
+      <Divider />
 
-          <button type="submit">구매하기</button>
-        </Form>
+      <div>
+        <Row gutter={[16, 16]}>
+          <Col lg={12} xs={24}>
+            <Descriptions title="계좌 정보" bordered>
+              <Descriptions.Item label="고객 고유 번호" span={3}>
+                {UserAccount.uniqueuser}
+              </Descriptions.Item>
+              <Descriptions.Item label="계좌 잔고">
+                {UserAccount.account}
+              </Descriptions.Item>
+            </Descriptions>
+
+            <Form onSubmit={findSubmitHandler}>
+              <button type="submit">계좌 정보 불러오기</button>
+            </Form>
+          </Col>
+
+          <Col lg={12} xs={24}>
+            <Form onSubmit={submitHandler}>
+              <Input
+                type="number"
+                onChange={quantityChangeHandler}
+                value={Quantity}
+              />
+              <button type="submit">구매하기</button>
+            </Form>
+          </Col>
+        </Row>
       </div>
     </div>
   );
 }
 
-export default FundInfo;
+export default withRouter(FundInfo);

@@ -3,7 +3,7 @@ import axios from "axios";
 import FundImage from "./Sections/FundImage";
 import FundInfo from "./Sections/FundInfo";
 import { Row, Col, Divider } from "antd";
-import { Router, Route, browserHistory, IndexRoute } from "react-router";
+import { Route, Switch } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
 function DetailFundPage(props) {
@@ -33,7 +33,7 @@ function DetailFundPage(props) {
           <FundImage detail={Fund} />
         </Col>
         <Col lg={12} sm={24}>
-          <FundInfo detail={Fund} />
+          <FundInfo detail={Fund} history={props} />
         </Col>
       </Row>
     </div>

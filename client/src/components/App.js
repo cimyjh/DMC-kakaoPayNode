@@ -11,6 +11,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import DetailFundPage from "./views/DetailFundPage/DetailFundPage";
 import StatementPage from "./views/StatementPage/StatementPage";
+import AccountPage from "./views/AccountPage/AccountPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -45,6 +46,7 @@ function App() {
             path="/statement"
             component={Auth(StatementPage, null)}
           />
+          <Route exact path="/account" component={Auth(AccountPage, true)} />
         </Switch>
       </div>
       <Footer />
