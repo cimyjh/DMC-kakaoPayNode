@@ -11,7 +11,8 @@ const fundSchema = mongoose.Schema(
 
     //상품 구분 ex펀드, 부동산
     classification: {
-      type: String,
+      type: Number,
+      default: 1,
     },
 
     //판매자 ex)키움자산운용, 피플펀드

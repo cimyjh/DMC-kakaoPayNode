@@ -43,8 +43,8 @@ router.post("/", (req, res) => {
 });
 
 router.post("/funds", (req, res) => {
-  // let order = req.body.order ? req.body.order : "desc";
-  // let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
 
   // fund collection에 들어 있는 모든 상품 정보를 가져오기
   let limit = req.body.limit ? parseInt(req.body.limit) : 20;
@@ -53,26 +53,26 @@ router.post("/funds", (req, res) => {
 
   let findArgs = {};
 
-  // for (let key in req.body.filters) {
-  //   if (req.body.filters[key].length > 0) {
-  //     console.log("key", key);
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      console.log("key", key);
 
-  //     if (key === "price") {
-  //       findArgs[key] = {
-  //         //Greater than equal
-  //         $gte: req.body.filters[key][0],
-  //         //Less than equal
-  //         $lte: req.body.filters[key][1],
-  //       };
-  //     } else {
-  //       findArgs[key] = req.body.filters[key];
-  //     }
-  //   }
-  // }
+      if (key === "price") {
+        findArgs[key] = {
+          //Greater than equal
+          $gte: req.body.filters[key][0],
+          //Less than equal
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
 
   if (term) {
     Fund.find(findArgs)
-      .find({ $text: { $search: term } })
+      .find({ fundTitle: new RegExp(term) })
       .populate("buyer")
       .sort([[sortBy, order]])
       .skip(skip)
@@ -88,7 +88,7 @@ router.post("/funds", (req, res) => {
   } else {
     Fund.find(findArgs)
       .populate("buyer")
-      // .sort([[sortBy, order]])
+      .sort([[sortBy, order]])
       .skip(skip)
       .limit(limit)
       .exec((err, fundInfo) => {

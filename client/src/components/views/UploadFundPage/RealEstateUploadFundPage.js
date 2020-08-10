@@ -4,15 +4,10 @@ import FileUpload from "../../utils/FileUpload";
 import Axios from "axios";
 const { TextArea } = Input;
 
-// const Continents = [
-//   { key: 1, value: "Africa" },
-//   { key: 2, value: "Europe" },
-//   { key: 3, value: "Asia" },
-//   { key: 4, value: "North America" },
-//   { key: 5, value: "South America" },
-//   { key: 6, value: "Australia" },
-//   { key: 7, value: "Antarctica" },
-// ];
+const Classifications = [
+  { key: 1, value: "펀드" },
+  { key: 2, value: "부동산" },
+];
 
 function RealEstateUploadProductPage(props) {
   //판매자
@@ -113,8 +108,16 @@ function RealEstateUploadProductPage(props) {
 
         <Divider>펀드 이름 및 유형</Divider>
         <br />
-        <label>상품 구분___펀드 or 부동산</label>
-        <Input onChange={classificationChangeHandler} value={Classification} />
+        <label>상품 구분</label>
+        <br />
+        <select onChange={classificationChangeHandler} value={Classification}>
+          {Classifications.map((item) => (
+            <option key={item.key} value={item.key}>
+              {item.value}
+            </option>
+          ))}
+        </select>
+        <br />
         <br />
         <label>판매자</label>
         <Input onChange={sellerChangeHandler} value={Seller} />
