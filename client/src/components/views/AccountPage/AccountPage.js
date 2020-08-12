@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Descriptions, Form, Input, Row, Col, Divider } from "antd";
 import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import Axios from "axios";
+import AccountInfo from "../Common/AccountInfo";
 
 function AccountPage(props) {
   const [SaveAccount, setSaveAccount] = useState("");
@@ -12,46 +13,26 @@ function AccountPage(props) {
   //   const [UserAccount, setUserAccount] = useState([]);
   const [UserAccount, setUserAccount] = useState([]);
 
-  useEffect(() => {
-    let body = {
-      userId: userId,
-    };
-
-    getAccount(body);
-  }, []);
-
-  const getAccount = (body) => {
-    Axios.post("/api/account", body)
-      .then((response) => {
-        setUserAccount(response.data.userAccountInfo);
-        console.log(response.data.userAccountInfo);
-        console.log(response.data.success);
-
-        console.log({ UserAccount });
-        alert("계좌 정보를 성공적으로 가져왔습니다.");
-      })
-      .catch((err) => alert(err));
-  };
-
-  //   useEffect(() => {
-  //     let body = {
-  //       userId: userId,
-  //     };
-  //     getUserAccount(body);
-  //   }, []);
-
-  //   const getUserAccount = (body) => {
-  //     Axios.post("/api/account", body)
-  //       .then((response) => {
-  //         setUserAccount(response.data.userAccountInfo);
-  //         console.log(response.data.userAccountInfo);
-  //         console.log(response.data.success);
-
-  //         console.log({ UserAccount });
-  //         alert("계좌 정보를 성공적으로 가져왔습니다.");
-  //       })
-  //       .catch((err) => alert(err));
+  // useEffect(() => {
+  //   let body = {
+  //     userId: userId,
   //   };
+
+  //   getAccount(body);
+  // }, []);
+
+  // const getAccount = (body) => {
+  //   Axios.post("/api/account", body)
+  //     .then((response) => {
+  //       setUserAccount(response.data.userAccountInfo);
+  //       console.log(response.data.userAccountInfo);
+  //       console.log(response.data.success);
+
+  //       console.log({ UserAccount });
+  //       alert("계좌 정보를 성공적으로 가져왔습니다.");
+  //     })
+  //     .catch((err) => alert(err));
+  // };
 
   const findSubmitHandler = (event) => {
     event.preventDefault();
@@ -71,20 +52,6 @@ function AccountPage(props) {
       })
       .catch((err) => alert(err));
   };
-
-  //   useEffect(() => {
-  //     let body = {
-  //       uniqueuser: userId,
-  //     };
-  //     Axios.get("/api/account", body).then((response) => {
-  //       if (response.data.success) {
-  //         setUserAccount(response.data[0]);
-  //         alert("계좌 정보를 성공적으로 가져왔습니다.");
-  //       } else {
-  //         alert("계좌 정보를 가져오는 데 실패 했습니다.");
-  //       }
-  //     });
-  //   }, []);
 
   const saveAccountChangeHandler = (event) => {
     setSaveAccount(event.currentTarget.value);
@@ -168,7 +135,8 @@ function AccountPage(props) {
     <div style={{ width: "75%", margin: "3rem auto" }}>
       <Row gutter={[16, 16]}>
         <Col lg={12} xs={24}>
-          <table>
+          <AccountInfo />
+          {/* <table>
             <thead>
               <tr>
                 <th>고객 고유 번호</th>
@@ -177,11 +145,11 @@ function AccountPage(props) {
             </thead>
 
             <tbody>
-              {/* <tr>{renderItems}</tr> */}
+
               <td>{UserAccount.uniqueuser}</td>
               <td> {UserAccount.account}원 </td>
             </tbody>
-          </table>
+          </table> */}
         </Col>
         <Col>
           <Form onSubmit={findSubmitHandler}>

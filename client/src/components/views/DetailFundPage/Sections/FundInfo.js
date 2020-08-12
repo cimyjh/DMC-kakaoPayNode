@@ -10,6 +10,8 @@ import {
 } from "react-router";
 // import { useDispatch } from "react-redux";
 import Axios from "axios";
+import AccountInfo from "../../Common/AccountInfo";
+
 // import { useSelector } from "react-redux";
 // import { addToCart } from "../../../../_actions/user_actions";
 
@@ -21,26 +23,26 @@ function FundInfo(props) {
 
   const [UserAccount, setUserAccount] = useState([]);
 
-  useEffect(() => {
-    let body = {
-      userId: userId,
-    };
+  // useEffect(() => {
+  //   let body = {
+  //     userId: userId,
+  //   };
 
-    getAccount(body);
-  }, []);
+  //   getAccount(body);
+  // }, []);
 
-  const getAccount = (body) => {
-    Axios.post("/api/account", body)
-      .then((response) => {
-        setUserAccount(response.data.userAccountInfo);
-        console.log(response.data.userAccountInfo);
-        console.log(response.data.success);
+  // const getAccount = (body) => {
+  //   Axios.post("/api/account", body)
+  //     .then((response) => {
+  //       setUserAccount(response.data.userAccountInfo);
+  //       console.log(response.data.userAccountInfo);
+  //       console.log(response.data.success);
 
-        console.log({ UserAccount });
-        alert("계좌 정보를 성공적으로 가져왔습니다.");
-      })
-      .catch((err) => alert(err));
-  };
+  //       console.log({ UserAccount });
+  //       alert("계좌 정보를 성공적으로 가져왔습니다.");
+  //     })
+  //     .catch((err) => alert(err));
+  // };
 
   const quantityChangeHandler = (event) => {
     setQuantity(event.currentTarget.value);
@@ -195,14 +197,7 @@ function FundInfo(props) {
       <div>
         <Row gutter={[16, 16]}>
           <Col lg={12} xs={24}>
-            <Descriptions title="계좌 정보" bordered>
-              <Descriptions.Item label="고객 고유 번호" span={3}>
-                {UserAccount.uniqueuser}
-              </Descriptions.Item>
-              <Descriptions.Item label="계좌 잔고">
-                {UserAccount.account}
-              </Descriptions.Item>
-            </Descriptions>
+            <AccountInfo />
 
             <Form onSubmit={findSubmitHandler}>
               <button type="submit">계좌 정보 불러오기</button>

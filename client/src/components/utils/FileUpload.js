@@ -64,12 +64,12 @@ function FileUpload(props) {
           <div onClick={() => deleteHandler(image)} key={index}>
             <img
               style={{ minWidth: "300px", width: "300px", height: "240px" }}
-              //로컬 전용
-              // src={`http://localhost:5000/${image}`}
+              // 로컬 전용
+              src={`http://localhost:5000/${image}`}
 
               //EC2
               //5000이 맞고 잘된다.
-              src={`http://ec2-52-78-141-209.ap-northeast-2.compute.amazonaws.com:5000/${image}`}
+              // src={`http://ec2-52-78-141-209.ap-northeast-2.compute.amazonaws.com:5000/${image}`}
             />
           </div>
         ))}
