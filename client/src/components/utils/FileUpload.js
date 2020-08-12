@@ -67,7 +67,8 @@ function FileUpload(props) {
               //로컬 전용
               // src={`http://localhost:5000/${image}`}
 
-              //EC2___5000 먼저 해봄
+              //EC2
+              //5000이 맞고 잘된다.
               src={`http://ec2-52-78-141-209.ap-northeast-2.compute.amazonaws.com:5000/${image}`}
             />
           </div>
