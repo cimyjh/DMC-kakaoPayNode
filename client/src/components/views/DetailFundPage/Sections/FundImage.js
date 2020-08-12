@@ -10,8 +10,13 @@ function FundImage(props) {
 
       props.detail.images.map((item) => {
         images.push({
-          original: `http://localhost:5000/${item}`,
-          thumbnail: `http://localhost:5000/${item}`,
+          //로컬
+          // original: `http://localhost:5000/${item}`,
+          // thumbnail: `http://localhost:5000/${item}`,
+
+          //ec2
+          original: `http://ec2-52-78-141-209.ap-northeast-2.compute.amazonaws.com:5000/${item}`,
+          thumbnail: `http://ec2-52-78-141-209.ap-northeast-2.compute.amazonaws.com:5000/${item}`,
         });
       });
       setImages(images);
